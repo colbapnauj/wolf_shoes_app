@@ -5,8 +5,8 @@ import 'package:wolf_app/services/data_service.dart';
 import 'package:wolf_app/widgets/custom_botton.dart';
 import 'package:wolf_app/widgets/custom_input.dart';
 
-class RegisterColorPage extends StatelessWidget {
-  const RegisterColorPage({Key? key}) : super(key: key);
+class RegisterModeloPage extends StatelessWidget {
+  const RegisterModeloPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,8 @@ class RegisterColorPage extends StatelessWidget {
               children: const [
                 SizedBox(height: 40),
                 Center(
-                    child: Text('Nuevo Color', style: TextStyle(fontSize: 20))),
+                    child:
+                        Text('Nuevo Modelo', style: TextStyle(fontSize: 20))),
                 SizedBox(height: 30),
                 Expanded(child: _Form()),
               ],
@@ -41,12 +42,11 @@ class _Form extends StatefulWidget {
 }
 
 class __FormState extends State<_Form> {
-  TextEditingController codCtrl = TextEditingController();
-  TextEditingController nameColorCtrl = TextEditingController();
+  TextEditingController nameModelCtrl = TextEditingController();
 
   @override
   void dispose() {
-    nameColorCtrl.dispose();
+    nameModelCtrl.dispose();
     super.dispose();
   }
 
@@ -61,33 +61,33 @@ class __FormState extends State<_Form> {
           child: Column(
             children: [
               CustomInput(
-                labelText: 'color',
+                labelText: 'modelo',
                 keyboardType: TextInputType.text,
                 autocorrect: true,
-                textController: nameColorCtrl,
+                textController: nameModelCtrl,
               ),
               const SizedBox(height: 20),
               CustomButton(
-                  text: 'Registrar nuevo color',
+                  text: 'Registrar nuevo modelo',
                   onPressed: dataService.isLoading
                       ? null
                       : () async {
                           FocusScope.of(context).unfocus();
 
                           // Validar controllers
-                          if (nameColorCtrl.text.isEmpty) {
+                          if (nameModelCtrl.text.isEmpty) {
                             mostrarAlerta(context, 'Error',
-                                'El campo color no puede estar vacío');
+                                'El campo nombre de modelo no puede estar vacío');
                             return;
                           }
 
-                          final result =
-                              await dataService.createColor(nameColorCtrl.text);
+                          final result = await dataService
+                              .createModelo(nameModelCtrl.text);
 
                           if (result['ok']) {
                             Navigator.pop(context);
                             mostrarAlerta(context, 'Registro exitoso',
-                                'Color registrado correctamente');
+                                'Nombre de Modelo registrado correctamente');
                           } else {
                             mostrarAlerta(context, 'Error', result['msg']);
                           }

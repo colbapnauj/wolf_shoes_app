@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wolf_app/helpers/show_confirmation.dart';
-import 'package:wolf_app/models/color.dart';
+import 'package:wolf_app/models/talla.dart';
+import 'package:wolf_app/models/zapato.dart';
 import 'package:wolf_app/services/data_service.dart';
 
-class ColorsPage extends StatelessWidget {
-  const ColorsPage({Key? key}) : super(key: key);
+class ZapatosPage extends StatelessWidget {
+  const ZapatosPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Wolf - Colores'),
+        title: const Text('Wolf - Modelos de Zapatos'),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -38,11 +39,11 @@ class _Clients extends StatefulWidget {
 class _ClientsState extends State<_Clients> {
   final dataService = DataService();
 
-  List<ColorModel> colorsList = [];
+  List<Zapato> zapatosList = [];
 
   @override
   void initState() {
-    _cargarColores();
+    _cargarZapatos();
     super.initState();
   }
 
@@ -51,11 +52,11 @@ class _ClientsState extends State<_Clients> {
     final dataService = Provider.of<DataService>(context);
     return ListView.builder(
         physics: const BouncingScrollPhysics(),
-        itemCount: colorsList.length,
+        itemCount: zapatosList.length,
         itemBuilder: (context, index) {
-          final color = colorsList[index];
+          final zapato = zapatosList[index];
           return ListTile(
-            title: Text(color.nameColor),
+            title: Text('Modelo: ${zapato.nombreModelo}'),
             trailing: IconButton(
               icon: const Icon(Icons.delete),
               onPressed: dataService.isLoading
@@ -63,11 +64,11 @@ class _ClientsState extends State<_Clients> {
                   : () {
                       mostrarConfirmacion(
                         context,
-                        'Eliminar color',
-                        '¿Estás seguro de eliminar este color?',
+                        'Eliminar modelo',
+                        '¿Estás seguro de eliminar este modelo?',
                         () {
-                          colorsList.remove(color);
-                          dataService.deleteColor(color.uid);
+                          zapatosList.remove(zapato);
+                          dataService.deleteModeloZapato(zapato.uid);
                           Navigator.of(context).pop();
                         },
                       );
@@ -77,12 +78,12 @@ class _ClientsState extends State<_Clients> {
         });
   }
 
-  Future<void> _cargarColores() async {
-    final result = await dataService.getColors();
+  Future<void> _cargarZapatos() async {
+    final result = await dataService.getModelosZapatos();
 
     if (result['ok']) {
       setState(() {
-        colorsList = result['colors'];
+        zapatosList = result['zapatos'];
       });
     }
   }

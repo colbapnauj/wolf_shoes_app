@@ -49,15 +49,17 @@ class HomePage extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      const Text('Operaciones'),
-                      ListTile(
-                        title: const Text('Proformas'),
-                        onTap: () {},
-                      ),
+                      const Text('Consultas'),
                       const SizedBox(height: 10),
                       Wrap(
                         spacing: 10,
                         children: [
+                          CustomButton(
+                            text: 'Productos',
+                            onPressed: () {
+                              Navigator.pushNamed(context, 'products');
+                            },
+                          ),
                           CustomButton(
                             text: 'Clientes',
                             onPressed: () {
@@ -71,15 +73,22 @@ class HomePage extends StatelessWidget {
                             },
                           ),
                           CustomButton(
-                            text: 'Productos',
-                            onPressed: () {},
+                            text: 'Tallas',
+                            onPressed: () {
+                              Navigator.pushNamed(context, 'tallas');
+                            },
+                          ),
+                          CustomButton(
+                            text: 'Modelos de Zapatos',
+                            onPressed: () {
+                              Navigator.pushNamed(context, 'zapatos');
+                            },
                           ),
                           const CustomButton(
                             text: 'Vendedores',
                           ),
-                          CustomButton(
+                          const CustomButton(
                             text: 'Proformas',
-                            onPressed: () {},
                           ),
                           const CustomButton(
                             text: 'Facturas',

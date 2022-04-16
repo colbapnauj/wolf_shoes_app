@@ -5,8 +5,8 @@ import 'package:wolf_app/services/data_service.dart';
 import 'package:wolf_app/widgets/custom_botton.dart';
 import 'package:wolf_app/widgets/custom_input.dart';
 
-class RegisterColorPage extends StatelessWidget {
-  const RegisterColorPage({Key? key}) : super(key: key);
+class RegisterTallaPage extends StatelessWidget {
+  const RegisterTallaPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class RegisterColorPage extends StatelessWidget {
               children: const [
                 SizedBox(height: 40),
                 Center(
-                    child: Text('Nuevo Color', style: TextStyle(fontSize: 20))),
+                    child: Text('Nueva Talla', style: TextStyle(fontSize: 20))),
                 SizedBox(height: 30),
                 Expanded(child: _Form()),
               ],
@@ -61,14 +61,14 @@ class __FormState extends State<_Form> {
           child: Column(
             children: [
               CustomInput(
-                labelText: 'color',
-                keyboardType: TextInputType.text,
+                labelText: 'talla',
+                keyboardType: TextInputType.number,
                 autocorrect: true,
                 textController: nameColorCtrl,
               ),
               const SizedBox(height: 20),
               CustomButton(
-                  text: 'Registrar nuevo color',
+                  text: 'Registrar nueva talla',
                   onPressed: dataService.isLoading
                       ? null
                       : () async {
@@ -77,17 +77,17 @@ class __FormState extends State<_Form> {
                           // Validar controllers
                           if (nameColorCtrl.text.isEmpty) {
                             mostrarAlerta(context, 'Error',
-                                'El campo color no puede estar vacío');
+                                'El campo talla no puede estar vacío');
                             return;
                           }
 
                           final result =
-                              await dataService.createColor(nameColorCtrl.text);
+                              await dataService.createTalla(nameColorCtrl.text);
 
                           if (result['ok']) {
                             Navigator.pop(context);
                             mostrarAlerta(context, 'Registro exitoso',
-                                'Color registrado correctamente');
+                                'Talla registrada correctamente');
                           } else {
                             mostrarAlerta(context, 'Error', result['msg']);
                           }

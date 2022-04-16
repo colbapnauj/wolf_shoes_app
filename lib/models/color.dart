@@ -1,4 +1,6 @@
-class ColorModel {
+import 'package:wolf_app/models/dropdown_item_model.dart';
+
+class ColorModel extends GlobalModel {
   ColorModel({
     required this.uid,
     required this.nameColor,
@@ -16,4 +18,14 @@ class ColorModel {
         "name_color": nameColor,
         "uid": uid,
       };
+
+  @override
+  String getId() {
+    return uid;
+  }
+
+  @override
+  String getValue() {
+    return nameColor;
+  }
 }

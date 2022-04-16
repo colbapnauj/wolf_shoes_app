@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wolf_app/helpers/show_alert.dart';
@@ -5,7 +6,6 @@ import 'package:wolf_app/models/cliente.dart';
 import 'package:wolf_app/services/data_service.dart';
 import 'package:wolf_app/widgets/custom_botton.dart';
 import 'package:wolf_app/widgets/custom_input.dart';
-import 'package:wolf_app/widgets/labels.dart';
 
 class RegisterClientPage extends StatelessWidget {
   const RegisterClientPage({Key? key}) : super(key: key);
@@ -62,7 +62,9 @@ class __FormState extends State<_Form> {
 
   @override
   void initState() {
-    fakeData();
+    if (kDebugMode) {
+      fakeData();
+    }
     super.initState();
   }
 

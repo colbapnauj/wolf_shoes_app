@@ -1,17 +1,20 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wolf_app/helpers/show_alert.dart';
 import 'package:wolf_app/helpers/show_confirmation.dart';
 import 'package:wolf_app/models/color.dart';
+import 'package:wolf_app/models/talla.dart';
 import 'package:wolf_app/services/data_service.dart';
 
-class ColorsPage extends StatelessWidget {
-  const ColorsPage({Key? key}) : super(key: key);
+class TallasPage extends StatelessWidget {
+  const TallasPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Wolf - Colores'),
+        title: const Text('Wolf - Tallas'),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -38,11 +41,11 @@ class _Clients extends StatefulWidget {
 class _ClientsState extends State<_Clients> {
   final dataService = DataService();
 
-  List<ColorModel> colorsList = [];
+  List<Talla> tallasList = [];
 
   @override
   void initState() {
-    _cargarColores();
+    _cargarTallas();
     super.initState();
   }
 
@@ -51,11 +54,11 @@ class _ClientsState extends State<_Clients> {
     final dataService = Provider.of<DataService>(context);
     return ListView.builder(
         physics: const BouncingScrollPhysics(),
-        itemCount: colorsList.length,
+        itemCount: tallasList.length,
         itemBuilder: (context, index) {
-          final color = colorsList[index];
+          final talla = tallasList[index];
           return ListTile(
-            title: Text(color.nameColor),
+            title: Text('Talla nro: ${talla.talla}'),
             trailing: IconButton(
               icon: const Icon(Icons.delete),
               onPressed: dataService.isLoading
@@ -63,11 +66,11 @@ class _ClientsState extends State<_Clients> {
                   : () {
                       mostrarConfirmacion(
                         context,
-                        'Eliminar color',
-                        '¿Estás seguro de eliminar este color?',
+                        'Eliminar talla',
+                        '¿Estás seguro de eliminar esta talla?',
                         () {
-                          colorsList.remove(color);
-                          dataService.deleteColor(color.uid);
+                          tallasList.remove(talla);
+                          dataService.deleteTalla(talla.uid);
                           Navigator.of(context).pop();
                         },
                       );
@@ -77,12 +80,13 @@ class _ClientsState extends State<_Clients> {
         });
   }
 
-  Future<void> _cargarColores() async {
-    final result = await dataService.getColors();
+  Future<void> _cargarTallas() async {
+    final result = await dataService.getTallas();
 
     if (result['ok']) {
       setState(() {
-        colorsList = result['colors'];
+        tallasList = result['tallas'];
+        tallasList.sort((a, b) => a.talla.compareTo(b.talla));
       });
     }
   }
