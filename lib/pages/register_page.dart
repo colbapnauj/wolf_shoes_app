@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wolf_app/helpers/show_alert.dart';
+import 'package:wolf_app/services/auth_service.dart';
+import 'package:wolf_app/utils/validate.dart';
 import 'package:wolf_app/widgets/custom_botton.dart';
 import 'package:wolf_app/widgets/custom_input.dart';
 import 'package:wolf_app/widgets/labels.dart';
@@ -55,25 +59,63 @@ class _Form extends StatefulWidget {
 }
 
 class __FormState extends State<_Form> {
+  final nameCtrl = TextEditingController();
+  final emailCtrl = TextEditingController();
+  final passwordCtrl = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Column(
         children: [
-          const CustomInput(
-              labelText: 'nombres', keyboardType: TextInputType.emailAddress),
+          CustomInput(
+            labelText: 'nombres',
+            keyboardType: TextInputType.emailAddress,
+            textController: nameCtrl,
+          ),
           const SizedBox(height: 20),
-          const CustomInput(
-              labelText: 'email', keyboardType: TextInputType.emailAddress),
+          CustomInput(
+            labelText: 'email',
+            keyboardType: TextInputType.emailAddress,
+            textController: emailCtrl,
+          ),
           const SizedBox(height: 20),
-          const CustomInput(
+          CustomInput(
             obscureText: true,
             labelText: 'password',
             keyboardType: TextInputType.visiblePassword,
+            textController: passwordCtrl,
           ),
           const SizedBox(height: 15),
-          CustomButton(text: 'registrar', onPressed: () {}),
+          CustomButton(
+              text: 'registrar',
+              onPressed: authService.autenticando
+                  ? null
+                  : () async {
+                      FocusScope.of(context).unfocus();
+
+                      if (nameCtrl.text.isEmpty ||
+                          emailCtrl.text.isEmpty ||
+                          passwordCtrl.text.isEmpty) {
+                        return mostrarAlerta(context, 'Error',
+                            'Todos los campos son obligatorios');
+                      }
+                      if (!CustomValidate.validateEmail(emailCtrl.text)) {
+                        return mostrarAlerta(
+                            context, 'Error', 'El email no es válido');
+                      }
+
+                      final res = await authService.register(
+                          nameCtrl.text, emailCtrl.text, passwordCtrl.text);
+
+                      if (res['ok'] as bool) {
+                        Navigator.popAndPushNamed(context, 'home');
+                      } else {
+                        mostrarAlerta(context, 'Alerta', res['msg']);
+                      }
+                    }),
         ],
       ),
     );

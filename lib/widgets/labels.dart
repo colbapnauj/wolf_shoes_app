@@ -13,7 +13,7 @@ class CustomLabels extends StatelessWidget {
       children: [
         TextButton(
             onPressed: () {
-              Navigator.pushReplacementNamed(context, ruta);
+              Navigator.pushNamed(context, ruta);
             },
             child: Text(text))
       ],

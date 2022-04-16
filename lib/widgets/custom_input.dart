@@ -5,12 +5,16 @@ class CustomInput extends StatelessWidget {
     Key? key,
     required this.labelText,
     required this.keyboardType,
+    this.autocorrect,
     this.obscureText,
+    this.textController,
   }) : super(key: key);
 
   final String labelText;
   final TextInputType keyboardType;
   final bool? obscureText;
+  final bool? autocorrect;
+  final TextEditingController? textController;
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +24,9 @@ class CustomInput extends StatelessWidget {
           color: Colors.white, borderRadius: BorderRadius.circular(20)),
       child: TextField(
         keyboardType: keyboardType,
-        autocorrect: false,
+        autocorrect: autocorrect ?? false,
         obscureText: obscureText ?? false,
+        controller: textController,
         decoration: InputDecoration(
             labelText: labelText,
             labelStyle: const TextStyle(
