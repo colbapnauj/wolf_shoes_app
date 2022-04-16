@@ -65,36 +65,36 @@ class HomePage extends StatelessWidget {
                             },
                           ),
                           CustomButton(
+                            text: 'Colores',
+                            onPressed: () {
+                              Navigator.pushNamed(context, 'colors');
+                            },
+                          ),
+                          CustomButton(
                             text: 'Productos',
                             onPressed: () {},
                           ),
-                          CustomButton(
+                          const CustomButton(
                             text: 'Vendedores',
-                            onPressed: () {},
                           ),
                           CustomButton(
                             text: 'Proformas',
                             onPressed: () {},
                           ),
-                          CustomButton(
+                          const CustomButton(
                             text: 'Facturas',
-                            onPressed: () {},
                           ),
-                          CustomButton(
+                          const CustomButton(
                             text: 'Cobros',
-                            onPressed: () {},
                           ),
-                          CustomButton(
+                          const CustomButton(
                             text: 'Pagos',
-                            onPressed: () {},
                           ),
-                          CustomButton(
+                          const CustomButton(
                             text: 'Caja',
-                            onPressed: () {},
                           ),
-                          CustomButton(
+                          const CustomButton(
                             text: 'Reportes',
-                            onPressed: () {},
                           ),
                         ],
                       ),
@@ -108,6 +108,30 @@ class HomePage extends StatelessWidget {
                             text: 'Nuevo cliente',
                             onPressed: () {
                               Navigator.pushNamed(context, 'register_client');
+                            },
+                          ),
+                          CustomButton(
+                            text: 'Nuevo producto',
+                            onPressed: () {
+                              Navigator.pushNamed(context, 'register_product');
+                            },
+                          ),
+                          CustomButton(
+                            text: 'Nuevo color',
+                            onPressed: () {
+                              Navigator.pushNamed(context, 'register_color');
+                            },
+                          ),
+                          CustomButton(
+                            text: 'Nueva talla',
+                            onPressed: () {
+                              Navigator.pushNamed(context, 'register_talla');
+                            },
+                          ),
+                          CustomButton(
+                            text: 'Nuevo modelo de zapato',
+                            onPressed: () {
+                              Navigator.pushNamed(context, 'register_zapato');
                             },
                           ),
                         ],

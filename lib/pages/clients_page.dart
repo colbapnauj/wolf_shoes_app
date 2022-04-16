@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:wolf_app/models/cliente.dart';
 import 'package:wolf_app/services/data_service.dart';
-import 'package:wolf_app/widgets/custom_botton.dart';
 
 class ClientsPage extends StatelessWidget {
   const ClientsPage({Key? key}) : super(key: key);
@@ -15,6 +13,7 @@ class ClientsPage extends StatelessWidget {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: SizedBox(
             height: MediaQuery.of(context).size.height,
             child: const _Clients(),
@@ -53,9 +52,9 @@ class _ClientsState extends State<_Clients> {
         itemBuilder: (context, index) {
           final client = clientsList[index];
           return ListTile(
-            leading: CircleAvatar(
-                child: Text(
-                    '${client.nombre[0]}${client.aPaterno[0]}${client.aMaterno[0]}')),
+            leading: CircleAvatar(child: Text(
+                // '${client.nombre[0]}${client.aPaterno[0]}${client.aMaterno[0]}')),
+                client.nombre.substring(0, 2))),
             title:
                 Text('${client.nombre} ${client.aPaterno} ${client.aMaterno}'),
             trailing: Text(client.telefono),
