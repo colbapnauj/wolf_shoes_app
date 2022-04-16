@@ -64,6 +64,15 @@ class __FormState extends State<_Form> {
   final passwordCtrl = TextEditingController();
 
   @override
+  void dispose() {
+    nameCtrl.dispose();
+    emailCtrl.dispose();
+    passwordCtrl.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
     return Padding(

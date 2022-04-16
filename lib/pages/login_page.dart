@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wolf_app/helpers/show_alert.dart';
+import 'package:wolf_app/services/auth_service.dart';
 import 'package:wolf_app/utils/validate.dart';
 import 'package:wolf_app/widgets/custom_botton.dart';
 import 'package:wolf_app/widgets/custom_input.dart';
@@ -62,6 +63,30 @@ class __FormState extends State<_Form> {
   final passwordCtrl = TextEditingController();
 
   bool rememberMe = false;
+  String? userEmail;
+
+  @override
+  void initState() {
+    super.initState();
+    getEmail();
+  }
+
+  Future<void> getEmail() async {
+    userEmail = await AuthService.getEmail();
+    if (userEmail != null) {
+      setState(() {
+        emailCtrl.text = userEmail!;
+        rememberMe = true;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    emailCtrl.dispose();
+    passwordCtrl.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

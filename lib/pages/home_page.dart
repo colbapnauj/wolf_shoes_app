@@ -98,6 +98,20 @@ class HomePage extends StatelessWidget {
                           ),
                         ],
                       ),
+                      const Divider(thickness: 2),
+                      const Text('Registrar'),
+                      Wrap(
+                        alignment: WrapAlignment.start,
+                        spacing: 10,
+                        children: [
+                          CustomButton(
+                            text: 'Nuevo cliente',
+                            onPressed: () {
+                              Navigator.pushNamed(context, 'register_client');
+                            },
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),

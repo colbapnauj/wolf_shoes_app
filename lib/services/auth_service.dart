@@ -21,7 +21,7 @@ class AuthService with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<String?> getEmail() async {
+  static Future<String?> getEmail() async {
     final _storage = FlutterSecureStorage();
     return await _storage.read(key: 'email');
   }

@@ -14,5 +14,5 @@ final Map<String, WidgetBuilder> appRoutes = {
   'loading': (_) => const LoadingPage(),
   'home': (_) => const HomePage(),
   'clients': (_) => const ClientsPage(),
-  'registerClient': (_) => const RegisterClientPage(),
+  'register_client': (_) => const RegisterClientPage(),
 };
